@@ -1,6 +1,5 @@
 /.vscode/settings.json
 /node_modules
-/dist
 
 # Generated files
 *.tgz
