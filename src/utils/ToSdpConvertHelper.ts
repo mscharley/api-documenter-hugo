@@ -13,7 +13,7 @@ import type {
 } from '../yaml/ISDPYamlFile.js';
 import path from 'path';
 import { Encoding, FileSystem, NewlineKind } from '@rushstack/node-core-library';
-import * as yaml from 'js-yaml';
+import yaml from 'js-yaml';
 
 export function convertUDPYamlToSDP(folderPath: string): void {
 	convert(folderPath, folderPath);

@@ -5,6 +5,7 @@ import { CommandLineParser } from '@rushstack/ts-command-line';
 import { GenerateAction } from './GenerateAction.js';
 import { MarkdownAction } from './MarkdownAction.js';
 import { YamlAction } from './YamlAction.js';
+import { HugoAction } from './HugoAction.js';
 
 export class ApiDocumenterCommandLine extends CommandLineParser {
 	public constructor() {
@@ -19,6 +20,7 @@ export class ApiDocumenterCommandLine extends CommandLineParser {
 
 	private _populateActions(): void {
 		this.addAction(new MarkdownAction(this));
+		this.addAction(new HugoAction(this));
 		this.addAction(new YamlAction(this));
 		this.addAction(new GenerateAction(this));
 	}

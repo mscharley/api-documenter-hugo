@@ -7,7 +7,7 @@
 		"api-documenter": "./bin/api-documenter.js"
 	},
 	"scripts": {
-		"start": " tsc && node ./bin/api-documenter.js",
+		"start": "tsc && node ./bin/api-documenter.js",
 		"build": "tsc",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},

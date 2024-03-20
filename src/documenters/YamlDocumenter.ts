@@ -3,7 +3,7 @@
 
 import * as path from 'path';
 
-import * as yaml from 'js-yaml';
+import yaml from 'js-yaml';
 import {
 	FileSystem,
 	InternalError,

@@ -6,6 +6,7 @@
 		// '@mscharley/eslint-config/react', // For projects running React.
 	],
 	"rules": {
+		"complexity": "off",
 		"sort-imports": "off"
 	}
 }
