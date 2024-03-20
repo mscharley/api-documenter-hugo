@@ -4,7 +4,7 @@
 	"description": "",
 	"type": "module",
 	"bin": {
-		"api-documenter": "./bin/api-documenter.js"
+		"api-documenter-hugo": "bin/api-documenter.js"
 	},
 	"scripts": {
 		"start": "tsc && node ./bin/api-documenter.js",
