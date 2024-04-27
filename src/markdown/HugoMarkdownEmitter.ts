@@ -36,7 +36,7 @@ export class HugoMarkdownEmitter extends MarkdownEmitter {
 		frontMatter: Record<string, unknown>,
 		options: ICustomMarkdownEmitterOptions,
 	): string {
-		stringBuilder.append(`---\n${yaml.safeDump(frontMatter)}---\n`);
+		stringBuilder.append(`---\n${yaml.dump(frontMatter)}---\n`);
 		return this.emit(stringBuilder, docNode, options);
 	}
 

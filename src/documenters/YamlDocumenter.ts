@@ -437,10 +437,10 @@ export class YamlDocumenter {
 		// Add the namespace of the item if it is contained in one.
 		// Do not add the namespace parent of a namespace as they are flattened in the documentation.
 		if (
-			apiItem.kind !== ApiItemKind.Namespace &&
-			apiItem.parent &&
-			apiItem.parent.kind === ApiItemKind.Namespace &&
-			this.newDocfxNamespaces
+			apiItem.kind !== ApiItemKind.Namespace
+			&& apiItem.parent
+			&& apiItem.parent.kind === ApiItemKind.Namespace
+			&& this.newDocfxNamespaces
 		) {
 			yamlItem.namespace = apiItem.parent.canonicalReference.toString();
 		}
@@ -726,7 +726,7 @@ export class YamlDocumenter {
 	private _writeYamlFile(dataObject: {}, filePath: string, yamlMimeType: string, schema: JsonSchema | undefined): void {
 		JsonFile.validateNoUndefinedMembers(dataObject);
 
-		let stringified: string = yaml.safeDump(dataObject, {
+		let stringified: string = yaml.dump(dataObject, {
 			lineWidth: 120,
 		});
 
@@ -848,9 +848,9 @@ export class YamlDocumenter {
 
 		// If the excerpt consists of a single reference token, record the reference.
 		if (
-			excerptTokens.length === 1 &&
-			excerptTokens[0].kind === ExcerptTokenKind.Reference &&
-			excerptTokens[0].canonicalReference
+			excerptTokens.length === 1
+			&& excerptTokens[0].kind === ExcerptTokenKind.Reference
+			&& excerptTokens[0].canonicalReference
 		) {
 			const excerptRef: string = excerptTokens[0].canonicalReference.toString();
 			const apiItem: ApiItem | undefined = this._apiItemsByCanonicalReference.get(excerptRef);
@@ -907,10 +907,10 @@ export class YamlDocumenter {
 						? apiItem.getScopedNameWithinPackage()
 						: token.canonicalReference
 							? token.canonicalReference
-									.withSource(undefined)
-									.withMeaning(undefined)
-									.withOverloadIndex(undefined)
-									.toString()
+								.withSource(undefined)
+								.withMeaning(undefined)
+								.withOverloadIndex(undefined)
+								.toString()
 							: token.text;
 					specs.push(spec);
 				} else {
@@ -950,9 +950,9 @@ export class YamlDocumenter {
 		const { includeSignature, includeNamespace } = options;
 		const baseName: string = includeSignature ? Utilities.getConciseSignature(apiItem) : apiItem.displayName;
 		if (
-			(includeNamespace || apiItem.kind === ApiItemKind.Namespace) &&
-			apiItem.parent &&
-			apiItem.parent.kind === ApiItemKind.Namespace
+			(includeNamespace || apiItem.kind === ApiItemKind.Namespace)
+			&& apiItem.parent
+			&& apiItem.parent.kind === ApiItemKind.Namespace
 		) {
 			// If the immediate parent is a namespace, then add the namespaces to the name.  For example:
 			//
