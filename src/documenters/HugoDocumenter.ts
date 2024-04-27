@@ -379,9 +379,9 @@ export class HugoDocumenter {
 		if (apiItem instanceof ApiTypeAlias) {
 			const refs: ExcerptToken[] = apiItem.excerptTokens.filter(
 				(token) =>
-					token.kind === ExcerptTokenKind.Reference &&
-					token.canonicalReference &&
-					this._apiModel.resolveDeclarationReference(token.canonicalReference, undefined).resolvedApiItem,
+					token.kind === ExcerptTokenKind.Reference
+					&& token.canonicalReference
+					&& this._apiModel.resolveDeclarationReference(token.canonicalReference, undefined).resolvedApiItem,
 			);
 			if (refs.length > 0) {
 				const referencesParagraph: DocParagraph = new DocParagraph({ configuration }, [
@@ -542,8 +542,8 @@ export class HugoDocumenter {
 			headerTitles: ['Type Alias', 'Description'],
 		});
 
-		const apiMembers: ReadonlyArray<ApiItem> =
-			apiContainer.kind === ApiItemKind.Package
+		const apiMembers: ReadonlyArray<ApiItem>
+			= apiContainer.kind === ApiItemKind.Package
 				? (apiContainer as ApiPackage).entryPoints[0].members
 				: (apiContainer as ApiNamespace).members;
 
@@ -892,6 +892,7 @@ export class HugoDocumenter {
 
 		if (ApiReturnTypeMixin.isBaseClassOf(apiParameterListMixin)) {
 			const returnTypeExcerpt: Excerpt = apiParameterListMixin.returnTypeExcerpt;
+			output.appendNode(new DocParagraph({ configuration }));
 			output.appendNode(
 				new DocParagraph({ configuration }, [
 					new DocEmphasisSpan({ configuration, bold: true }, [new DocPlainText({ configuration, text: 'Returns:' })]),
@@ -1140,9 +1141,9 @@ export class HugoDocumenter {
 
 	private _writeAlphaWarning(output: DocSection): void {
 		const configuration: TSDocConfiguration = this._tsdocConfiguration;
-		const betaWarning: string =
-			'This API is provided as an alpha preview for developers and may change' +
-			' based on feedback that we receive.  Do not use this API in a production environment.';
+		const betaWarning: string
+			= 'This API is provided as an alpha preview for developers and may change'
+			+ ' based on feedback that we receive.  Do not use this API in a production environment.';
 		output.appendNode(
 			new DocNoteBox({ configuration }, [
 				new DocParagraph({ configuration }, [new DocPlainText({ configuration, text: betaWarning })]),
@@ -1152,9 +1153,9 @@ export class HugoDocumenter {
 
 	private _writeBetaWarning(output: DocSection): void {
 		const configuration: TSDocConfiguration = this._tsdocConfiguration;
-		const betaWarning: string =
-			'This API is provided as a beta preview for developers and may change' +
-			' based on feedback that we receive.  Do not use this API in a production environment.';
+		const betaWarning: string
+			= 'This API is provided as a beta preview for developers and may change'
+			+ ' based on feedback that we receive.  Do not use this API in a production environment.';
 		output.appendNode(
 			new DocNoteBox({ configuration }, [
 				new DocParagraph({ configuration }, [new DocPlainText({ configuration, text: betaWarning })]),
