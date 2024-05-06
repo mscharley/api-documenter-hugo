@@ -544,7 +544,7 @@ export class HugoDocumenter {
 
 		const apiMembers: ReadonlyArray<ApiItem>
 			= apiContainer.kind === ApiItemKind.Package
-				? (apiContainer as ApiPackage).entryPoints[0].members
+				? (apiContainer as ApiPackage).entryPoints.flatMap((ep) => ep.members)
 				: (apiContainer as ApiNamespace).members;
 
 		for (const apiMember of apiMembers) {
