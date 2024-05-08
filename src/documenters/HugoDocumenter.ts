@@ -1236,6 +1236,9 @@ export class HugoDocumenter {
 					qualifiedName += `_${hierarchyItem.overloadIndex - 1}`;
 				}
 			}
+			if (hierarchyItem.kind === ApiItemKind.Variable) {
+				qualifiedName = `var_${qualifiedName}`;
+			}
 
 			lastKind === hierarchyItem.kind;
 			switch (hierarchyItem.kind) {
