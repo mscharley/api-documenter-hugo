@@ -24,6 +24,7 @@ import {
 	ApiDeclaredItem,
 	ApiDocumentedItem,
 	type ApiEnum,
+	type ApiEntryPoint,
 	ApiInitializerMixin,
 	ApiInterface,
 	type ApiItem,
@@ -1225,7 +1226,6 @@ export class HugoDocumenter {
 		}
 
 		let baseName: string = '';
-		const lastKind = apiItem.kind;
 		for (const hierarchyItem of apiItem.getHierarchy()) {
 			// For overloaded methods, add a suffix such as "MyClass.myMethod_2".
 			let qualifiedName: string = Utilities.getSafeFilenameForName(hierarchyItem.displayName);
@@ -1240,12 +1240,19 @@ export class HugoDocumenter {
 				qualifiedName = `var_${qualifiedName}`;
 			}
 
-			lastKind === hierarchyItem.kind;
 			switch (hierarchyItem.kind) {
 				case ApiItemKind.Model:
-				case ApiItemKind.EntryPoint:
 				case ApiItemKind.EnumMember:
 					break;
+				case ApiItemKind.EntryPoint: {
+					const entrypointName = (hierarchyItem as ApiEntryPoint).name;
+					if (entrypointName.length > 0) {
+						baseName += `/${Utilities.getSafeFilenameForName(PackageName.getUnscopedName(entrypointName))}`;
+					} else {
+						baseName += '/_';
+					}
+					break;
+				}
 				case ApiItemKind.Package:
 					baseName = Utilities.getSafeFilenameForName(PackageName.getUnscopedName(hierarchyItem.displayName));
 					break;
