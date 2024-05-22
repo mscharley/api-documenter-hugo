@@ -1249,12 +1249,16 @@ export class HugoDocumenter {
 					if (entrypointName.length > 0) {
 						baseName += `/${Utilities.getSafeFilenameForName(PackageName.getUnscopedName(entrypointName))}`;
 					} else {
-						baseName += '/_';
+						baseName += '/_root';
 					}
 					break;
 				}
 				case ApiItemKind.Package:
-					baseName = `${Utilities.getSafeFilenameForName(PackageName.getUnscopedName(hierarchyItem.displayName))}/_`;
+					baseName = Utilities.getSafeFilenameForName(PackageName.getUnscopedName(hierarchyItem.displayName));
+					if (hierarchyItem === apiItem) {
+						// If we're generating a link to the package, then we should refer to the default entrypoint instead.
+						baseName += '/_root';
+					}
 					break;
 				default:
 					baseName += `/${qualifiedName}`;
