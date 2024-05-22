@@ -1254,7 +1254,7 @@ export class HugoDocumenter {
 					break;
 				}
 				case ApiItemKind.Package:
-					baseName = Utilities.getSafeFilenameForName(PackageName.getUnscopedName(hierarchyItem.displayName));
+					baseName = `${Utilities.getSafeFilenameForName(PackageName.getUnscopedName(hierarchyItem.displayName))}/_`;
 					break;
 				default:
 					baseName += `/${qualifiedName}`;
