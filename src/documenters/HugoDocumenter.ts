@@ -132,6 +132,15 @@ export class HugoDocumenter {
 			case ApiItemKind.Class:
 				frontMatter.title = `${scopedName} class`;
 				break;
+			case ApiItemKind.EntryPoint: {
+				// TODO: Skip the root entrypoint as the package already writes this file
+				if ((apiItem as ApiEntryPoint).importPath === '') {
+					return;
+				}
+				const unscopedPackageName: string = PackageName.getUnscopedName((apiItem.parent as ApiPackage).displayName);
+				frontMatter.title = `${unscopedPackageName}/${apiItem.displayName} entrypoint`;
+				break;
+			}
 			case ApiItemKind.Enum:
 				frontMatter.title = `${scopedName} enum`;
 				break;
@@ -281,6 +290,10 @@ export class HugoDocumenter {
 				break;
 			case ApiItemKind.Model:
 				this._writeModelTable(output, apiItem as ApiModel);
+				break;
+			case ApiItemKind.EntryPoint:
+				// TODO: Actually document entrypoints correctly
+				output.appendNodeInParagraph(new DocPlainText({ configuration, text: 'TODO: Please reference the root entrypoint which contains links to elements from all entrypoints' }));
 				break;
 			case ApiItemKind.Package:
 				this._writePackageOrNamespaceTables(output, apiItem as ApiPackage);
@@ -542,6 +555,34 @@ export class HugoDocumenter {
 			configuration,
 			headerTitles: ['Type Alias', 'Description'],
 		});
+
+		if (apiContainer.kind === ApiItemKind.Package) {
+			const entrypointsTable = new DocTable({
+				configuration,
+				headerTitles: ['Path'],
+			});
+
+			for (const entrypoint of (apiContainer as ApiPackage).entryPoints) {
+				const path = new DocTableCell({ configuration }, [
+					new DocParagraph({ configuration }, [
+						new DocLinkTag({
+							configuration,
+							tagName: '@link',
+							linkText: `${apiContainer.name}${entrypoint.importPath === '' ? '' : `/${entrypoint.importPath}`}`,
+							urlDestination: this._getLinkFilenameForApiItem(entrypoint),
+						}),
+					]),
+				]);
+				entrypointsTable.addRow(new DocTableRow({ configuration }, [path]));
+				this._writeApiItemPage(entrypoint);
+			}
+
+			// There will always be at least one entrypoint, but we only need a table if there is more than the root
+			if (entrypointsTable.rows.length > 1) {
+				output.appendNode(new DocHeading({ configuration, title: 'Entrypoints' }));
+				output.appendNode(entrypointsTable);
+			}
+		}
 
 		const apiMembers: ReadonlyArray<ApiItem>
 			= apiContainer.kind === ApiItemKind.Package
