@@ -7,6 +7,7 @@
 		"api-documenter-hugo": "bin/api-documenter.js"
 	},
 	"scripts": {
+		"prepack": "npm run build",
 		"start": "tsc && node ./bin/api-documenter.js",
 		"build": "tsc",
 		"test": "echo \"Error: no test specified\" && exit 1"
@@ -14,7 +15,7 @@
 	"author": "Matthew Scharley <matt@scharley.me>",
 	"license": "MIT",
 	"dependencies": {
-		"@microsoft/api-extractor-model": "^7.28.13",
+		"@microsoft/api-extractor-model": "^7.29.8",
 		"@microsoft/tsdoc": "^0.15.0",
 		"@rushstack/node-core-library": "^4.0.2",
 		"@rushstack/terminal": "^0.13.0",
