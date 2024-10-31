@@ -57,7 +57,7 @@ import type { IYamlTocFile, IYamlTocItem } from '../yaml/IYamlTocFile.js';
 import { Utilities } from '../utils/Utilities.js';
 import { CustomMarkdownEmitter } from '../markdown/CustomMarkdownEmitter.js';
 import { convertUDPYamlToSDP } from '../utils/ToSdpConvertHelper.js';
-import typescriptSchema from '../yaml/typescript.schema.json' assert { type: 'json' };
+import typescriptSchema from '../yaml/typescript.schema.json' with { type: 'json' };
 
 const yamlApiSchema: JsonSchema = JsonSchema.fromLoadedObject(typescriptSchema);
 

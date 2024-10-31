@@ -4,7 +4,7 @@
 import * as path from 'path';
 import { JsonFile, JsonSchema, NewlineKind } from '@rushstack/node-core-library';
 import type { IConfigFile } from './IConfigFile.js';
-import apiDocumenterSchema from '../schemas/api-documenter.schema.json' assert { type: 'json' };
+import apiDocumenterSchema from '../schemas/api-documenter.schema.json' with { type: 'json' };
 
 /**
  * Helper for loading the api-documenter.json file format.  Later when the schema is more mature,
