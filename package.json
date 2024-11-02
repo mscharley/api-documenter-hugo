@@ -17,7 +17,7 @@
 	"dependencies": {
 		"@microsoft/api-extractor-model": "^7.29.8",
 		"@microsoft/tsdoc": "^0.15.0",
-		"@rushstack/node-core-library": "^4.0.2",
+		"@rushstack/node-core-library": "^5.0.0",
 		"@rushstack/terminal": "^0.13.0",
 		"@rushstack/ts-command-line": "^4.19.1",
 		"js-yaml": "~4.1.0",
